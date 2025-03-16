@@ -14,4 +14,7 @@ export default {
     unstable_middleware: true,
     unstable_splitRouteModules: true,
   },
+  // Uncomment these if you want to prerender your routes
+  // serverBuildFile: "assets/server-build.js",
+  // prerender: ["/"],
 } satisfies Config;
