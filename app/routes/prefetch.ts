@@ -3,7 +3,7 @@ import {
   unstable_RouterContextProvider,
 } from "react-router";
 import type { Route } from "../+types/root";
-import type { QueryClient } from "@tanstack/react-query";
+import { type QueryClient } from "@tanstack/react-query";
 import { getQueryClient } from "~/lib/trpc";
 import { appRouter, type AppRouter } from "../api/router";
 import {
@@ -14,23 +14,20 @@ import { createContext } from "~/api/context";
 
 export const queryClientContext = unstable_createContext<QueryClient>();
 
-export const queryClientMiddleware: Route.unstable_MiddlewareFunction = (
-  { context },
-  next,
-) => {
+export const queryClientMiddleware: Route.unstable_MiddlewareFunction = async ({
+  context,
+}) => {
   const queryClient = getQueryClient();
   context.set(queryClientContext, queryClient);
-
-  return next();
 };
 
 export const trpcContext =
   unstable_createContext<TRPCOptionsProxy<AppRouter>>();
 
-export const trpcMiddleware: Route.unstable_MiddlewareFunction = (
-  { request, context },
-  next,
-) => {
+export const trpcMiddleware: Route.unstable_MiddlewareFunction = ({
+  request,
+  context,
+}) => {
   const queryClient = context.get(queryClientContext);
 
   context.set(
@@ -41,8 +38,6 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = (
       queryClient,
     }),
   );
-
-  return next();
 };
 
 export const prefetch = (context: unstable_RouterContextProvider) => {

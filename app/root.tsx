@@ -7,15 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
 import type { Route } from "./+types/root";
 import "~/app.css";
-import { Providers } from "./components/providers";
+import { Providers } from "~/components/providers";
 import {
-  prefetch,
+  queryClientContext,
   queryClientMiddleware,
   trpcMiddleware,
-} from "./routes/prefetch";
+} from "~/routes/prefetch";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -38,24 +37,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export const unstable_middleware = [queryClientMiddleware, trpcMiddleware];
 
-export async function loader({ context }: Route.LoaderArgs) {
-  const { queryClient } = prefetch(context);
-
-  const queryCache = queryClient.getQueryCache();
-
-  const hasFinishedFetching = new Promise<void>((resolve) => {
-    const unsubscribe = queryCache.subscribe(() => {
-      const done = queryCache
-        .getAll()
-        .every((query) => query.state.status !== "pending");
-      if (done) {
-        unsubscribe();
-        resolve();
-      }
-    });
-  });
-
-  await hasFinishedFetching;
+export function loader({ context }: Route.LoaderArgs) {
+  const queryClient = context.get(queryClientContext);
 
   return data(dehydrate(queryClient));
 }

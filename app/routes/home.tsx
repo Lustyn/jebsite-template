@@ -14,11 +14,13 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ context }: Route.LoaderArgs) {
-  const { queryClient, trpc } = prefetch(context);
+export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
+  async ({ context }) => {
+    const { queryClient, trpc } = prefetch(context);
 
-  await queryClient.prefetchQuery(trpc.hero.message.queryOptions());
-}
+    await queryClient.prefetchQuery(trpc.hero.message.queryOptions());
+  },
+];
 
 export default function Home() {
   const trpc = useTRPC();
