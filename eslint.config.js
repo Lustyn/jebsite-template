@@ -9,7 +9,7 @@ export default [
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
   },
   {
-    ignores: [".react-router/types/**/*.*"],
+    ignores: [".react-router/types/**/*.*", "build/"],
   },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
