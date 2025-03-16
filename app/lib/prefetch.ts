@@ -40,6 +40,11 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = ({
   );
 };
 
+/**
+ * Provides query client and TRPC client for prefetching
+ * @param context Router context
+ * @returns Query client and TRPC client
+ */
 export const prefetch = (context: unstable_RouterContextProvider) => {
   const queryClient = context.get(queryClientContext);
   const trpc = context.get(trpcContext);
@@ -49,3 +54,26 @@ export const prefetch = (context: unstable_RouterContextProvider) => {
     trpc,
   };
 };
+
+/**
+ * Skips prefetching if the request is from the same origin.
+ *
+ * This is useful for skipping prefetching on internal navigations.
+ * @param request Request
+ * @param fn Function to run if not skipped
+ * @returns Result of fn or undefined
+ */
+export async function skipIfSameOrigin<T>(
+  request: Request,
+  fn: () => Promise<T>,
+): Promise<T | undefined> {
+  const refererHeader = request.headers.get("referer");
+  const referer = refererHeader ? new URL(refererHeader) : null;
+  const url = new URL(request.url);
+  const isSameOrigin = referer?.origin === url.origin;
+  if (isSameOrigin) {
+    return;
+  }
+
+  return await fn();
+}
