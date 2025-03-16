@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "@react-router/node": "^7.3.0",
+    "@tanstack/react-query": "^5.68.0",
+    "@trpc/client": "11.0.0-rc.833",
+    "@trpc/server": "11.0.0-rc.833",
+    "@trpc/tanstack-react-query": "11.0.0-rc.833",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "isbot": "^5.1.23",

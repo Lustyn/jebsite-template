@@ -1,4 +1,5 @@
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -8,7 +9,14 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
+import "~/app.css";
+import { Providers } from "./components/providers";
+import {
+  prefetch,
+  queryClientMiddleware,
+  trpcMiddleware,
+} from "./routes/prefetch";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Providers>{children}</Providers>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -28,8 +36,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+export const unstable_middleware = [queryClientMiddleware, trpcMiddleware];
+
+export async function loader({ context }: Route.LoaderArgs) {
+  const { queryClient } = prefetch(context);
+
+  const queryCache = queryClient.getQueryCache();
+
+  const hasFinishedFetching = new Promise<void>((resolve) => {
+    const unsubscribe = queryCache.subscribe(() => {
+      const done = queryCache
+        .getAll()
+        .every((query) => query.state.status !== "pending");
+      if (done) {
+        unsubscribe();
+        resolve();
+      }
+    });
+  });
+
+  await hasFinishedFetching;
+
+  return data(dehydrate(queryClient));
+}
+
+export default function App({ loaderData }: Route.ComponentProps) {
+  return (
+    <HydrationBoundary state={loaderData}>
+      <Outlet />
+    </HydrationBoundary>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
