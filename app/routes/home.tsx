@@ -1,7 +1,7 @@
 import { useTRPC } from "~/lib/trpc";
 import type { Route } from "./+types/home";
 import { useQuery } from "@tanstack/react-query";
-import { prefetch } from "~/routes/prefetch";
+import { prefetch } from "~/lib/prefetch";
 
 export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.svg" },

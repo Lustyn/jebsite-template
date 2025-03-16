@@ -14,7 +14,7 @@ import {
   queryClientContext,
   queryClientMiddleware,
   trpcMiddleware,
-} from "~/routes/prefetch";
+} from "~/lib/prefetch";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 export function Layout({ children }: { children: React.ReactNode }) {
