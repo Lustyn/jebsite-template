@@ -8,6 +8,7 @@ A modern, production-ready template for building full-stack React applications u
 - ⚡️ Hot Module Replacement (HMR) for fast development
 - 📦 Modern bundling with Vite
 - 🔄 Data loading and mutations with React Router
+- 🔍 tRPC + React Query with server-side prefetching support
 - 🔒 TypeScript by default
 - 🎨 TailwindCSS 4 with dark mode support
 - 🧩 Utility-first CSS with class-variance-authority and tailwind-merge
@@ -132,6 +133,10 @@ The template uses React Router Hono Server for a flexible server runtime, provid
 ### Shadcn Component System
 
 Shadcn provides a collection of reusable, accessible UI components that are fully customizable and styled with TailwindCSS. The components are installed directly into your project, giving you full control over their implementation.
+
+### tRPC + React Query
+
+The template includes tRPC integration with React Query for type-safe API calls between your client and server. This setup supports server-side prefetching of data, ensuring optimal performance and SEO benefits while maintaining end-to-end type safety.
 
 ## Scripts
 
