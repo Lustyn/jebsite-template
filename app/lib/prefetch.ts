@@ -70,7 +70,11 @@ export async function skipIfSameOrigin<T>(
   const refererHeader = request.headers.get("referer");
   const referer = refererHeader ? new URL(refererHeader) : null;
   const url = new URL(request.url);
-  const isSameOrigin = referer?.origin === url.origin;
+  // For our purposes, protocol (i.e. origin) isn't relevant since the fetches could be internal or behind a proxy
+  // Origin: http://localhost:3000
+  // Host: localhost:3000
+  // Hostname: localhost
+  const isSameOrigin = referer?.host === url.host;
   if (isSameOrigin) {
     return;
   }
