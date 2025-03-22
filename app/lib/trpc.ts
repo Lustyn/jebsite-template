@@ -18,7 +18,7 @@ function makeQueryClient() {
       },
       dehydrate: {
         // Dehydrate pending queries, since promises can be
-        //returned from the loader and streamed
+        // returned from the loader and streamed
         shouldDehydrateQuery: (query) =>
           defaultShouldDehydrateQuery(query) ||
           query.state.status === "pending",
