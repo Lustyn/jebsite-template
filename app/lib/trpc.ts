@@ -1,4 +1,7 @@
-import { QueryClient } from "@tanstack/react-query";
+import {
+  defaultShouldDehydrateQuery,
+  QueryClient,
+} from "@tanstack/react-query";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import type { AppRouter } from "~/api/router";
 
@@ -12,6 +15,13 @@ function makeQueryClient() {
         // With SSR, we usually want to set some default staleTime
         // above 0 to avoid refetching immediately on the client
         staleTime: 60 * 1000,
+      },
+      dehydrate: {
+        // Dehydrate pending queries, since promises can be
+        //returned from the loader and streamed
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === "pending",
       },
     },
   });

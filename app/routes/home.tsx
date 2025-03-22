@@ -18,7 +18,11 @@ export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
   async ({ context }) => {
     const { queryClient, trpc } = prefetch(context);
 
+    // Block the page to prefetch
     await queryClient.prefetchQuery(trpc.hero.message.queryOptions());
+
+    // Or, if you don't want to block the page:
+    // void queryClient.prefetchQuery(trpc.hero.message.queryOptions());
 
     // If you need to prevent internal navigations from causing prefetching, use skipIfSameOrigin
     // await skipIfSameOrigin(request, async () => {
