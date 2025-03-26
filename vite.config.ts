@@ -10,10 +10,11 @@ export default defineConfig({
     tailwindcss(),
     babel({
       filter: /\.[jt]sx?$/,
+      loader: "jsx",
       babelConfig: {
         compact: false,
         presets: ["@babel/preset-typescript"],
-        plugins: [["babel-plugin-react-compiler", {}]],
+        plugins: [["babel-plugin-react-compiler", { target: "19" }]],
       },
     }),
     reactRouterHonoServer(),

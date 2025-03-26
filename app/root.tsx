@@ -1,3 +1,4 @@
+import "~/app.css";
 import {
   data,
   isRouteErrorResponse,
@@ -8,7 +9,6 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-import "~/app.css";
 import { Providers } from "~/components/providers";
 import {
   queryClientContext,
@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Providers>{children}</Providers>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -45,9 +45,11 @@ export function loader({ context }: Route.LoaderArgs) {
 
 export default function App({ loaderData }: Route.ComponentProps) {
   return (
-    <HydrationBoundary state={loaderData}>
-      <Outlet />
-    </HydrationBoundary>
+    <Providers>
+      <HydrationBoundary state={loaderData}>
+        <Outlet />
+      </HydrationBoundary>
+    </Providers>
   );
 }
 

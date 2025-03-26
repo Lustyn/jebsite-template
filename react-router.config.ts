@@ -13,6 +13,8 @@ export default {
   future: {
     unstable_middleware: true,
     unstable_splitRouteModules: true,
+    unstable_optimizeDeps: true,
+    unstable_viteEnvironmentApi: true,
   },
   // Uncomment these if you want to prerender your routes
   // serverBuildFile: "assets/server-build.js",
