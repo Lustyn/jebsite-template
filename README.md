@@ -96,6 +96,14 @@ The containerized application can be deployed to any platform that supports Dock
 - Fly.io
 - Railway
 
+### Serverless Deployment
+
+For deploying to platforms like Cloudflare Workers, AWS Lambda, or Vercel, you should follow the platform's specific guidance for hosting React Router apps.
+
+- [Cloudflare Workers Template](https://github.com/cloudflare/templates/tree/staging/react-router-starter-template)
+- [AWS Lambda (SST)](https://sst.dev/docs/component/aws/react/)
+- [Vercel](https://vercel.com/docs/frameworks/react-router) (current incompatible with unstable_middleware, so proceed with caution)
+
 ### DIY Deployment
 
 If you're familiar with deploying Node applications, the built-in app server is production-ready.
