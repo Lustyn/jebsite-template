@@ -14,7 +14,6 @@ A modern, production-ready template for building full-stack React applications u
 - 🧩 Utility-first CSS with class-variance-authority and tailwind-merge
 - 🛠️ Shadcn component system for beautiful UI components
 - 🚄 React Compiler for optimized performance
-- 🌐 React Router Hono Server for performant and flexible server
 - 🔍 ESLint and Prettier for code quality
 - 🧪 Husky and lint-staged for pre-commit hooks
 - 🐳 Docker support for easy deployment
@@ -24,12 +23,13 @@ A modern, production-ready template for building full-stack React applications u
 ```
 jebsite-template/
 ├── app/                   # Main application code
+│   ├── api/               # API routes
+│   ├── components/        # UI components
 │   ├── lib/               # Utility functions and shared code
 │   ├── routes/            # Route components and logic
 │   ├── app.css            # Global styles with TailwindCSS
 │   ├── root.tsx           # Root component and error boundaries
 │   ├── routes.ts          # Route definitions
-│   └── server.ts          # Server-side code
 ├── public/                # Static assets
 ├── Dockerfile             # Docker configuration for deployment
 ├── components.json        # Shadcn component configuration
@@ -124,7 +124,7 @@ This template comes with TailwindCSS 4 already configured with a beautiful defau
 
 - Modern color system using OKLCH color space
 - Responsive design utilities
-- Animation utilities via tailwindcss-animate
+- Animation utilities via tw-animate-css
 - Utility composition with tailwind-merge and class-variance-authority
 - Shadcn component system for consistent, accessible UI components
 
@@ -133,10 +133,6 @@ This template comes with TailwindCSS 4 already configured with a beautiful defau
 ### React Compiler
 
 This template includes React Compiler (formerly React Forget) which automatically optimizes your React components for better performance without manual memoization.
-
-### React Router Hono Server
-
-The template uses React Router Hono Server for a flexible server runtime, providing a lightweight and performant foundation for your application.
 
 ### Shadcn Component System
 
