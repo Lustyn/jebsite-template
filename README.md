@@ -152,6 +152,73 @@ The template includes tRPC integration with React Query for type-safe API calls 
 - `lint`: Lint code with ESLint
 - `prepare`: Set up Husky hooks
 
+## Keeping Your Project Updated with Template Changes
+
+When you've created a project based on this template, you might want to incorporate future updates and improvements from the template into your existing project. Using an LLM-based coding assistant like Windsurf or Cursor can make this process much easier.
+
+### Using LLM-Based Tools to Merge Template Updates
+
+LLM-based coding assistants can help you analyze the differences between the template and your project, and intelligently merge changes while preserving your customizations.
+
+#### Step-by-Step Process
+
+1. Identify the specific commit or version of the template you want to merge from
+2. Open your project in an LLM-enabled editor (like Windsurf or Cursor)
+3. Provide a prompt to the LLM to analyze and merge the changes
+4. Review the proposed changes before applying them
+5. Resolve any conflicts that the LLM couldn't handle automatically
+
+#### Example Prompt for LLM-Based Merging
+
+Here's a comprehensive prompt you can use with your LLM-based coding assistant:
+
+```
+I want to update my project with the latest changes from the Jebsite Template. Please help me merge the changes from the commit range [COMMIT_HASH_A]..[COMMIT_HASH_B] into my current project.
+
+Here's what I need you to do:
+
+1. First, examine the changes in this specific commit range by reviewing:
+   https://github.com/Lustyn/jebsite-template/compare/[COMMIT_HASH_A]...[COMMIT_HASH_B]
+
+2. Analyze my current project structure to understand what files I've modified or customized.
+
+3. For each changed file in the template update:
+   - If the file exists in my project and I haven't customized it significantly, apply the template changes.
+   - If I've heavily customized the file, analyze the changes carefully and suggest how to incorporate the template updates without overwriting my customizations.
+   - If it's a new file that doesn't exist in my project, add it if it's relevant.
+
+4. IMPORTANT: Ignore any changes to:
+   - Example code or explanatory comments that I've removed from my project
+   - Lock files (package-lock.json, yarn.lock, pnpm-lock.yaml, etc.)
+   - Generated files that should be rebuilt locally
+
+5. For each file you want to update:
+   - Explain why the change is beneficial
+   - Highlight any potential conflicts or areas where I need to make decisions
+
+6. Focus on structural improvements, dependency updates, security fixes, and new features, while preserving my business logic and customizations.
+
+7. If there are major architectural changes that require significant refactoring, explain them first before implementing.
+```
+
+### Tips for Successful Merging
+
+- Be specific about which commit or version you want to merge from
+- Review all changes carefully before applying them
+- For complex projects, consider merging changes in smaller batches
+- Keep a backup or ensure your code is committed to version control before applying changes
+- Test thoroughly after merging to ensure everything still works as expected
+
+### Common Template Updates to Watch For
+
+- Security patches and dependency updates
+- Performance improvements
+- New components or utilities
+- Bug fixes
+- Documentation improvements
+
+By using this approach, you can keep your project up-to-date with the latest improvements while maintaining your customizations.
+
 ---
 
 Built with ❤️ by justy
