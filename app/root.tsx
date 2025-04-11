@@ -17,6 +17,14 @@ import {
 } from "~/lib/prefetch";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
+/**
+ * Renders the main page layout.
+ *
+ * NOTE: It is not recommended to modify this, since re-rendering the root layout
+ * can cause a host of issues. Not limited to FOUC, breaking extensions, etc.
+ *
+ * If you need a layout, consider making a page layout component and using the `layout` route helper.
+ */
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
