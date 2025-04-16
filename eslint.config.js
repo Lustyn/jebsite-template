@@ -25,6 +25,12 @@ export default [
   reactHooks.configs["recommended-latest"],
   {
     rules: {
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          fixStyle: "inline-type-imports",
+        },
+      ],
       "no-empty-pattern": "off",
     },
   },

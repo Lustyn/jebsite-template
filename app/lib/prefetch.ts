@@ -1,6 +1,6 @@
 import {
+  type unstable_RouterContextProvider,
   unstable_createContext,
-  unstable_RouterContextProvider,
 } from "react-router";
 import type { Route } from "../+types/root";
 import { type QueryClient } from "@tanstack/react-query";
