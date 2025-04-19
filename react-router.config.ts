@@ -15,6 +15,7 @@ export default {
     unstable_splitRouteModules: true,
     unstable_optimizeDeps: true,
     unstable_viteEnvironmentApi: true,
+    unstable_subResourceIntegrity: true,
   },
   // Uncomment these if you want to prerender your routes
   // serverBuildFile: "assets/server-build.js",
