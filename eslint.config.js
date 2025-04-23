@@ -1,7 +1,6 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
-import reactCompiler from "eslint-plugin-react-compiler";
 import react from "eslint-plugin-react";
 import * as reactHooks from "eslint-plugin-react-hooks";
 
@@ -21,8 +20,7 @@ export default [
     settings: { react: { version: "detect" } },
   },
   react.configs.flat["jsx-runtime"],
-  reactCompiler.configs.recommended,
-  reactHooks.configs["recommended-latest"],
+  reactHooks.configs.recommended,
   {
     rules: {
       "@typescript-eslint/consistent-type-imports": [
@@ -32,6 +30,7 @@ export default [
         },
       ],
       "no-empty-pattern": "off",
+      "react-hooks/react-compiler": "error",
     },
   },
 ];
