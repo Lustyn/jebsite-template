@@ -24,20 +24,27 @@ export const queryClientMiddleware: Route.unstable_MiddlewareFunction = async ({
 export const trpcContext =
   unstable_createContext<TRPCOptionsProxy<AppRouter>>();
 
-export const trpcMiddleware: Route.unstable_MiddlewareFunction = ({
-  request,
-  context,
-}) => {
+export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
+  { request, context },
+  next,
+) => {
   const queryClient = context.get(queryClientContext);
+  const resHeaders = new Headers();
 
   context.set(
     trpcContext,
     createTRPCOptionsProxy({
-      ctx: createContext({ req: request }),
+      ctx: createContext({ req: request, resHeaders }),
       router: appRouter,
       queryClient,
     }),
   );
+
+  const res = await next();
+
+  resHeaders.forEach((v, k) => res.headers.append(k, v));
+
+  return res;
 };
 
 /**
