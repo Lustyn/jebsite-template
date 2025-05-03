@@ -6,7 +6,7 @@ export function createContext({
   resHeaders: Headers;
 }) {
   // As an example, you can retrieve auth or other information here.
-  // const user = { name: fetchCtx.req.headers.get("username") ?? "anonymous" };
+  // const user = { name: req.headers.get("username") ?? "anonymous" };
   return {
     req,
     resHeaders,
