@@ -1,11 +1,15 @@
-import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
-
-export function createContext(fetchCtx: FetchCreateContextFnOptions) {
+export function createContext({
+  req,
+  resHeaders,
+}: {
+  req: Request;
+  resHeaders: Headers;
+}) {
   // As an example, you can retrieve auth or other information here.
   // const user = { name: fetchCtx.req.headers.get("username") ?? "anonymous" };
-
   return {
-    ...fetchCtx,
+    req,
+    resHeaders,
     // user,
   };
 }
