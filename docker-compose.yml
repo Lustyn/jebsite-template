@@ -1,6 +1,15 @@
 services:
   jebsite:
     build: .
-    restart: unless-stopped
+    # Restart the container when the host machine is rebooted
+    # restart: unless-stopped
+    # Include some environment variables
+    # env_file:
+    #   - .env
+    # environment:
+    #   - ENV_VAR_NAME=env_var_value
+    # Add some volumes
+    # volumes:
+    #   - ./data:/app/data
     ports:
       - 127.0.0.1:3000:3000
