@@ -1,0 +1,21 @@
+name: Docker Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          tags: jebsite:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
