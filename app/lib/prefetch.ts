@@ -4,7 +4,7 @@ import {
 } from "react-router";
 import type { Route } from "../+types/root";
 import { type QueryClient } from "@tanstack/react-query";
-import { getQueryClient } from "~/lib/trpc";
+import { getQueryClient } from "~/lib/query";
 import { appRouter, type AppRouter } from "../api/router";
 import {
   createTRPCOptionsProxy,
@@ -52,7 +52,7 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
  * @param context Router context
  * @returns Query client and TRPC client
  */
-export const prefetch = (context: unstable_RouterContextProvider) => {
+export const prefetch = (context: Readonly<unstable_RouterContextProvider>) => {
   const queryClient = context.get(queryClientContext);
   const trpc = context.get(trpcContext);
 
