@@ -15,8 +15,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
-  async ({ context }) => {
-    const { queryClient, trpc } = prefetch(context);
+  async () => {
+    const { queryClient, trpc } = prefetch();
 
     // Block the page to prefetch
     await queryClient.prefetchQuery(trpc.hero.message.queryOptions());

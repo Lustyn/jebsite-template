@@ -1,6 +1,5 @@
 import "~/app.css";
 import {
-  data,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -8,14 +7,6 @@ import {
   ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { Providers } from "~/components/providers";
-import {
-  queryClientContext,
-  queryClientMiddleware,
-  trpcMiddleware,
-} from "~/lib/prefetch";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-
 /**
  * Renders the main page layout.
  *
@@ -41,22 +32,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const unstable_middleware = [queryClientMiddleware, trpcMiddleware];
-
-export function loader({ context }: Route.LoaderArgs) {
-  const queryClient = context.get(queryClientContext);
-
-  return data(dehydrate(queryClient));
-}
-
-export default function App({ loaderData }: Route.ComponentProps) {
-  return (
-    <Providers>
-      <HydrationBoundary state={loaderData}>
-        <Outlet />
-      </HydrationBoundary>
-    </Providers>
-  );
+export default function App() {
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

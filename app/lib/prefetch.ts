@@ -1,50 +1,55 @@
-import {
-  type unstable_RouterContextProvider,
-  unstable_createContext,
-} from "react-router";
-import type { Route } from "../+types/root";
-import { type QueryClient } from "@tanstack/react-query";
-import { getQueryClient } from "~/lib/query";
-import { appRouter, type AppRouter } from "../api/router";
-import {
-  createTRPCOptionsProxy,
-  type TRPCOptionsProxy,
-} from "@trpc/tanstack-react-query";
-import { createContext } from "~/api/context";
+import type { QueryClient } from "@tanstack/react-query";
+import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
+import type { appRouter } from "~/api/router";
+import { AsyncLocalStorage } from "async_hooks";
 
-export const queryClientContext = unstable_createContext<QueryClient>();
+interface RequestLocalContext {
+  request: Request;
+  responseHeaders: Headers;
+  queryClient: QueryClient;
+  trpc: TRPCOptionsProxy<typeof appRouter>;
+}
 
-export const queryClientMiddleware: Route.unstable_MiddlewareFunction = async ({
-  context,
-}) => {
-  const queryClient = getQueryClient();
-  context.set(queryClientContext, queryClient);
+const requestLocalStorage = new AsyncLocalStorage<RequestLocalContext>();
+
+const requestLocalContext = () => {
+  const store = requestLocalStorage.getStore();
+  if (!store) {
+    throw new Error("No request context found");
+  }
+
+  return store;
 };
 
-export const trpcContext =
-  unstable_createContext<TRPCOptionsProxy<AppRouter>>();
-
-export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
-  { request, context },
-  next,
+/**
+ * Provides request context for prefetching
+ * @param context Request context
+ * @param fn Function to run with request context
+ * @returns Result of fn
+ */
+export const provideRequestLocalContext = <T>(
+  context: RequestLocalContext,
+  fn: () => T,
 ) => {
-  const queryClient = context.get(queryClientContext);
-  const resHeaders = new Headers();
+  return requestLocalStorage.run(context, () => {
+    return fn();
+  });
+};
 
-  context.set(
-    trpcContext,
-    createTRPCOptionsProxy({
-      ctx: createContext({ req: request, resHeaders }),
-      router: appRouter,
-      queryClient,
-    }),
-  );
+/**
+ * Returns the request
+ * @returns Request
+ */
+export const request = () => {
+  return requestLocalContext().request;
+};
 
-  const res = await next();
-
-  resHeaders.forEach((v, k) => res.headers.append(k, v));
-
-  return res;
+/**
+ * Returns the response headers
+ * @returns Response headers
+ */
+export const responseHeaders = () => {
+  return requestLocalContext().responseHeaders;
 };
 
 /**
@@ -52,10 +57,8 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
  * @param context Router context
  * @returns Query client and TRPC client
  */
-export const prefetch = (context: Readonly<unstable_RouterContextProvider>) => {
-  const queryClient = context.get(queryClientContext);
-  const trpc = context.get(trpcContext);
-
+export const prefetch = () => {
+  const { queryClient, trpc } = requestLocalContext();
   return {
     queryClient,
     trpc,
@@ -66,17 +69,16 @@ export const prefetch = (context: Readonly<unstable_RouterContextProvider>) => {
  * Skips prefetching if the request is from the same origin.
  *
  * This is useful for skipping prefetching on internal navigations.
- * @param request Request
  * @param fn Function to run if not skipped
  * @returns Result of fn or undefined
  */
 export async function skipIfSameOrigin<T>(
-  request: Request,
   fn: () => Promise<T>,
 ): Promise<T | undefined> {
-  const refererHeader = request.headers.get("referer");
+  const req = request();
+  const refererHeader = req.headers.get("referer");
   const referer = refererHeader ? new URL(refererHeader) : null;
-  const url = new URL(request.url);
+  const url = new URL(req.url);
   // For our purposes, protocol (i.e. origin) isn't relevant since the fetches could be internal or behind a proxy
   // Origin: http://localhost:3000
   // Host: localhost:3000
