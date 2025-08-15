@@ -31,12 +31,12 @@ export function Providers({
   );
 
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <HydrationBoundary state={dehydratedState}>
         <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
           {children}
         </TRPCProvider>
-      </QueryClientProvider>
-    </HydrationBoundary>
+      </HydrationBoundary>
+    </QueryClientProvider>
   );
 }
