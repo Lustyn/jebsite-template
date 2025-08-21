@@ -9,6 +9,7 @@ A modern, production-ready template for building full-stack React applications u
 - 📦 Modern bundling with Vite
 - 🔄 Data loading and mutations with React Router
 - 🔍 tRPC + React Query with server-side prefetching support
+- ⚙️ React Server Components with client/server comparison examples
 - 🔒 TypeScript by default
 - 🎨 TailwindCSS 4 with dark mode support
 - 🧩 Utility-first CSS with class-variance-authority and tailwind-merge
@@ -73,6 +74,24 @@ Create a production build:
 ```bash
 pnpm build
 ```
+
+## Examples
+
+This template includes practical examples to help you understand the key concepts:
+
+### React Server Components Demo
+
+Visit `/server-example` to see a comprehensive demonstration of React Server Components vs Client Components. This example shows:
+
+- **Server Components**: Data fetched and rendered on the server before HTML is sent to the client
+- **Client Components**: Data fetched on the client after hydration with loading states
+- **Side-by-side comparison**: Highlighting the differences in performance and behavior
+- **Server-only data**: Accessing Node.js environment information that's only available on the server
+
+The example demonstrates when to use each approach:
+
+- Use Server Components for fast initial loads and SEO-critical content
+- Use Client Components for interactive features and dynamic user interfaces
 
 ## Deployment
 
