@@ -8,6 +8,7 @@ interface RequestLocalContext {
   responseHeaders: Headers;
   queryClient: QueryClient;
   trpc: TRPCOptionsProxy<typeof appRouter>;
+  trpcCaller: ReturnType<typeof appRouter.createCaller>;
 }
 
 const requestLocalStorage = new AsyncLocalStorage<RequestLocalContext>();
@@ -63,6 +64,14 @@ export const prefetch = () => {
     queryClient,
     trpc,
   };
+};
+
+/**
+ * Returns the tRPC caller for server-side usage
+ * @returns tRPC caller
+ */
+export const trpcCaller = () => {
+  return requestLocalContext().trpcCaller;
 };
 
 /**

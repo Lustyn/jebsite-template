@@ -1,8 +1,6 @@
 import type { Route } from "./+types/server-example";
-import { prefetch, request, responseHeaders } from "~/lib/prefetch";
+import { prefetch, trpcCaller } from "~/lib/prefetch";
 import { ClientDataExample } from "~/components/client-data-example";
-import { appRouter } from "~/api/router";
-import { createContext } from "~/api/context";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -25,11 +23,8 @@ export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
 ];
 
 export async function ServerComponent({}: Route.ComponentProps) {
-  // Use the proper AsyncContext to get request and response headers
-  const req = request();
-  const resHeaders = responseHeaders();
-  const ctx = createContext({ req, resHeaders });
-  const caller = appRouter.createCaller(ctx);
+  // Use the tRPC caller from the AsyncContext
+  const caller = trpcCaller();
 
   // Fetch data directly on the server using tRPC
   const serverData = await caller.serverDemo.getSlowData();

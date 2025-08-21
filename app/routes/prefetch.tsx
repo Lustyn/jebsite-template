@@ -12,13 +12,18 @@ export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
   async ({ request }, next) => {
     const responseHeaders = new Headers();
     const queryClient = getQueryClient();
+    const context = createContext({
+      req: request,
+      resHeaders: responseHeaders,
+    });
     const trpc = createTRPCOptionsProxy({
-      ctx: createContext({ req: request, resHeaders: responseHeaders }),
+      ctx: context,
       router: appRouter,
       queryClient,
     });
+    const trpcCaller = appRouter.createCaller(context);
     return provideRequestLocalContext(
-      { request, responseHeaders, queryClient, trpc },
+      { request, responseHeaders, queryClient, trpc, trpcCaller },
       async () => {
         const response = await next();
 
