@@ -36,11 +36,30 @@ export default function Home() {
   const message = useQuery(trpc.hero.message.queryOptions());
 
   return (
-    <main className="container mx-auto flex flex-col items-center p-4 pt-16">
-      <h1 className="text-4xl">Jebsite</h1>
-      <p className="animate-shimmer bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 bg-[size:200%_100%] bg-clip-text text-sm text-transparent">
-        {message.data}
-      </p>
+    <main className="container mx-auto flex flex-col items-center space-y-8 p-4 pt-16">
+      <div className="space-y-4 text-center">
+        <h1 className="text-4xl">Jebsite</h1>
+        <p className="animate-shimmer bg-gradient-to-r from-gray-500 via-gray-300 to-gray-500 bg-[size:200%_100%] bg-clip-text text-sm text-transparent">
+          {message.data}
+        </p>
+      </div>
+
+      <div className="space-y-4 text-center">
+        <h2 className="text-xl font-semibold text-gray-700">Examples</h2>
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <a
+            href="/server-example"
+            className="inline-flex items-center space-x-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
+          >
+            <span>🚀</span>
+            <span>React Server Components Demo</span>
+          </a>
+        </div>
+        <p className="mx-auto max-w-md text-sm text-gray-500">
+          Explore the differences between Server Components and Client
+          Components in this interactive example.
+        </p>
+      </div>
     </main>
   );
 }
