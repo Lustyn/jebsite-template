@@ -9,7 +9,7 @@ A modern, production-ready template for building full-stack React applications u
 - 📦 Modern bundling with Vite
 - 🔄 Data loading and mutations with React Router
 - 🔍 tRPC + React Query with server-side prefetching support
-- ⚙️ React Server Components with client/server comparison examples
+- ⚙️ RSC with client/server comparison examples
 - 🔒 TypeScript by default
 - 🎨 TailwindCSS 4 with dark mode support
 - 🧩 Utility-first CSS with class-variance-authority and tailwind-merge

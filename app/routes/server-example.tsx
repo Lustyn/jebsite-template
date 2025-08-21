@@ -1,5 +1,5 @@
 import type { Route } from "./+types/server-example";
-import { prefetch } from "~/lib/prefetch";
+import { prefetch, request, responseHeaders } from "~/lib/prefetch";
 import { ClientDataExample } from "~/components/client-data-example";
 import { appRouter } from "~/api/router";
 import { createContext } from "~/api/context";
@@ -25,9 +25,10 @@ export const unstable_middleware: Route.unstable_MiddlewareFunction[] = [
 ];
 
 export async function ServerComponent({}: Route.ComponentProps) {
-  // Create server context for tRPC calls (use a mock request since we don't have access to it here)
-  const mockRequest = new Request("http://localhost/server-example");
-  const ctx = createContext({ req: mockRequest, resHeaders: new Headers() });
+  // Use the proper AsyncContext to get request and response headers
+  const req = request();
+  const resHeaders = responseHeaders();
+  const ctx = createContext({ req, resHeaders });
   const caller = appRouter.createCaller(ctx);
 
   // Fetch data directly on the server using tRPC
