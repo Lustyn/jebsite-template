@@ -8,6 +8,7 @@ import {
 export default [
   layout("routes/prefetch.tsx", [
     index("routes/home.tsx"),
+    route("/server-example", "routes/server-example.tsx"),
     route("/api/trpc/*", "routes/trpc.ts"),
   ]),
 ] satisfies RouteConfig;
