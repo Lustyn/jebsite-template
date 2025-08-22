@@ -41,7 +41,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.1",
-    "@vitejs/plugin-rsc": "^0.4.21",
+    "@vitejs/plugin-rsc": "^0.4.22",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "esbuild": "^0.25.9",
     "eslint": "^9.33.0",
