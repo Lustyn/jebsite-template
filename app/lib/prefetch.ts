@@ -52,7 +52,7 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
  * @param context Router context
  * @returns Query client and TRPC client
  */
-export const prefetch = (context: unstable_RouterContextProvider) => {
+export const prefetch = (context: Readonly<unstable_RouterContextProvider>) => {
   const queryClient = context.get(queryClientContext);
   const trpc = context.get(trpcContext);
 
