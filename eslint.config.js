@@ -2,10 +2,10 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
-import * as reactHooks from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks";
+import { defineConfig } from "eslint/config";
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
+export default defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
   },
@@ -20,7 +20,7 @@ export default [
     settings: { react: { version: "detect" } },
   },
   react.configs.flat["jsx-runtime"],
-  reactHooks.configs.recommended,
+  reactHooks.configs["flat/recommended"],
   {
     rules: {
       "@typescript-eslint/consistent-type-imports": [
@@ -30,7 +30,7 @@ export default [
         },
       ],
       "no-empty-pattern": "off",
-      "react-hooks/react-compiler": "error",
+      "react-hooks/exhaustive-deps": "error",
     },
   },
-];
+]);

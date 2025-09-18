@@ -1,6 +1,6 @@
 import {
-  type unstable_RouterContextProvider,
-  unstable_createContext,
+  type RouterContextProvider,
+  createContext as createRouterContext,
 } from "react-router";
 import type { Route } from "../+types/root";
 import { type QueryClient } from "@tanstack/react-query";
@@ -12,19 +12,18 @@ import {
 } from "@trpc/tanstack-react-query";
 import { createContext } from "~/api/context";
 
-export const queryClientContext = unstable_createContext<QueryClient>();
+export const queryClientContext = createRouterContext<QueryClient>();
 
-export const queryClientMiddleware: Route.unstable_MiddlewareFunction = async ({
+export const queryClientMiddleware: Route.MiddlewareFunction = async ({
   context,
 }) => {
   const queryClient = getQueryClient();
   context.set(queryClientContext, queryClient);
 };
 
-export const trpcContext =
-  unstable_createContext<TRPCOptionsProxy<AppRouter>>();
+export const trpcContext = createRouterContext<TRPCOptionsProxy<AppRouter>>();
 
-export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
+export const trpcMiddleware: Route.MiddlewareFunction = async (
   { request, context },
   next,
 ) => {
@@ -52,7 +51,7 @@ export const trpcMiddleware: Route.unstable_MiddlewareFunction = async (
  * @param context Router context
  * @returns Query client and TRPC client
  */
-export const prefetch = (context: Readonly<unstable_RouterContextProvider>) => {
+export const prefetch = (context: Readonly<RouterContextProvider>) => {
   const queryClient = context.get(queryClientContext);
   const trpc = context.get(trpcContext);
 

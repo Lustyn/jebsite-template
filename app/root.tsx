@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const unstable_middleware = [queryClientMiddleware, trpcMiddleware];
+export const middleware = [queryClientMiddleware, trpcMiddleware];
 
 export function loader({ context }: Route.LoaderArgs) {
   const queryClient = context.get(queryClientContext);
