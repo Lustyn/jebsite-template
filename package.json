@@ -14,7 +14,7 @@
   "dependencies": {
     "@react-router/node": "^7.9.1",
     "@react-router/serve": "^7.5.1",
-    "@tanstack/react-query": "^5.87.1",
+    "@tanstack/react-query": "^5.90.1",
     "@trpc/client": "11.5.1",
     "@trpc/server": "11.5.1",
     "@trpc/tanstack-react-query": "11.5.1",
@@ -40,7 +40,7 @@
     "esbuild": "^0.25.2",
     "eslint": "^9.35.0",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "6.1.0-canary-128abcfa-20250917",
+    "eslint-plugin-react-hooks": "6.1.0-canary-72135096-20250421",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
