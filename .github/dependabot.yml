@@ -24,6 +24,9 @@ updates:
     # Check for updates once a week
     schedule:
       interval: "weekly"
+    # Ignore all Node version updates, since Dependabot can't handle staying on LTS only
+    ignore:
+      - dependency-name: "node"
     groups:
       dependencies:
         patterns:
