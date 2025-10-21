@@ -20,7 +20,7 @@ export default defineConfig([
     settings: { react: { version: "detect" } },
   },
   react.configs.flat["jsx-runtime"],
-  reactHooks.configs["flat/recommended"],
+  reactHooks.configs.flat["recommended-latest"],
   {
     rules: {
       "@typescript-eslint/consistent-type-imports": [
