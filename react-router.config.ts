@@ -6,9 +6,9 @@ export default {
   ssr: true,
   future: {
     v8_middleware: true,
-    unstable_splitRouteModules: true,
+    v8_splitRouteModules: true,
+    v8_viteEnvironmentApi: true,
     unstable_optimizeDeps: true,
-    unstable_viteEnvironmentApi: true,
     unstable_subResourceIntegrity: true,
   },
   // Uncomment these if you want to prerender your routes
