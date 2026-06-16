@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     babel({
-      filter: /\.[jt]sx?$/,
+      include: /\.[jt]sx?$/,
       loader: "jsx",
       babelConfig: {
         compact: false,
